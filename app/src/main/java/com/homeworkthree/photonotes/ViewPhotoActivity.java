@@ -38,13 +38,9 @@ public class ViewPhotoActivity extends ActionBarActivity{
     }
     private void loadImageFromStorage(String path)
     {
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File myPath=new File(directory,path);
-        String s=  myPath.getAbsolutePath();
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;
-        Bitmap b = BitmapFactory.decodeFile(s, options);
+        Bitmap b = BitmapFactory.decodeFile(path, options);
         displayImage.setImageBitmap(b);
     }
 
@@ -72,6 +68,13 @@ public class ViewPhotoActivity extends ActionBarActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ViewPhotoActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

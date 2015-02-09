@@ -36,8 +36,6 @@ public class PhotoDatabase extends SQLiteOpenHelper {
         if (cursor != null && cursor.getCount() > 0)
             cursor.moveToFirst();
             Photos photos = new Photos(cursor.getString(cursor.getColumnIndex("image_name")),cursor.getString(cursor.getColumnIndex("image_path")));
-        Log.e("image name ", cursor.getString(cursor.getColumnIndex("image_name")));
-        Log.e("image path ", cursor.getString(cursor.getColumnIndex("image_path")));
 
         cursor.close();
         db.close();

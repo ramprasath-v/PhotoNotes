@@ -27,12 +27,14 @@ import java.util.Date;
 public class AddPhotoActivity extends ActionBarActivity implements View.OnClickListener {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private SQLiteDatabase db=null;
-    private String imagePath;
+    private String imageName;
     private EditText imageNameText;
     private String timeStamp;
     private Bitmap imageBitmap;
     private PhotoDatabase photoDB;
     private String imageNameTextValue;
+    private String absoluteImagePath;
+    private String directoryPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +59,12 @@ public class AddPhotoActivity extends ActionBarActivity implements View.OnClickL
                     displayErrorMessage("Please enter a name for the image");
                 }
                 else {
-                    imagePath = imageNameTextValue + timeStamp + ".jpeg";
-                    saveToInternalStorage(imageBitmap, imagePath);
+                    imageName = imageNameTextValue + timeStamp + ".jpeg";
+                    directoryPath = saveToInternalStorage(imageBitmap, imageName);
+                    absoluteImagePath = directoryPath+"/"+imageName;
                     ContentValues cv = new ContentValues();
                     cv.put("image_name", imageNameTextValue);
-                    cv.put("image_path", imagePath);
+                    cv.put("image_path", absoluteImagePath);
                     db.insert("savedimages", null, cv);
                     Intent intent = new Intent(AddPhotoActivity.this, MainActivity.class);
                     startActivity(intent);
