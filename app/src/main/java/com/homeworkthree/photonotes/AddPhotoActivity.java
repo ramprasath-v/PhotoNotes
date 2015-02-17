@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -58,6 +59,9 @@ public class AddPhotoActivity extends ActionBarActivity implements View.OnClickL
                 if(imageNameTextValue.matches("")){
                     displayErrorMessage("Please enter a name for the image");
                 }
+                else if (imageBitmap == null){
+                    displayErrorMessage("Please take a picture ");
+                }
                 else {
                     imageName = imageNameTextValue + timeStamp + ".jpeg";
                     directoryPath = saveToInternalStorage(imageBitmap, imageName);
@@ -66,10 +70,9 @@ public class AddPhotoActivity extends ActionBarActivity implements View.OnClickL
                     cv.put("image_name", imageNameTextValue);
                     cv.put("image_path", absoluteImagePath);
                     db.insert("savedimages", null, cv);
-                    Intent intent = new Intent(AddPhotoActivity.this, MainActivity.class);
-                    startActivity(intent);
                     finish();
                 }
+
             }
         });
     }

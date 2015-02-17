@@ -1,7 +1,5 @@
 package com.homeworkthree.photonotes;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,8 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
 
 
 public class ViewPhotoActivity extends ActionBarActivity{

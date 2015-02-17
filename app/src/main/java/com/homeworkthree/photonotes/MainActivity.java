@@ -21,11 +21,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 
     private ListView listView;
     private List<String> savedImageNames;
-
-    final List<String> photos = new ArrayList<>();
     private PhotoDatabase photoDB= new PhotoDatabase(this);
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +29,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.photoList);
         listView.setOnItemClickListener(this);
-        savedImageNames = photoDB.getAllImages();
-        for (int i = 0; i < savedImageNames.size(); ++i) {
-            photos.add(savedImageNames.get(i));
-        }
-        listView.setAdapter(new PhotoListAdapter(this, R.layout.custom_photo_layout, photos));
     }
 
     @Override
@@ -54,6 +45,17 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final List<String> photos = new ArrayList<>();
+        savedImageNames = photoDB.getAllImages();
+        for (int i = 0; i < savedImageNames.size(); ++i) {
+            photos.add(savedImageNames.get(i));
+        }
+        listView.setAdapter(new PhotoListAdapter(this, R.layout.custom_photo_layout, photos));
     }
 
     @Override
@@ -79,6 +81,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
 
